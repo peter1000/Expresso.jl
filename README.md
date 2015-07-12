@@ -19,7 +19,7 @@ julia> @! [
        """
        ],
        type T
-           x :: Int = begin
+           x :: Int := begin
                "getter..."
                getx() = self.x - 10
                "setter..."

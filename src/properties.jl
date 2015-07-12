@@ -50,7 +50,7 @@ outer one and then re-exported. The outer module is named ``M``.
 
     @! [],
     type T
-        x :: Int = begin
+        x :: Int := begin
             getx() = self.x - 10
             setx!(val) = 0 < val < self.x ? self.x = val : error("Cannot set.")
         end
@@ -59,7 +59,7 @@ outer one and then re-exported. The outer module is named ``M``.
 Description:
 
 The type ``T`` has a single field, ``x :: Int``, which is made private by using the ``@!``
-macro and defining a block of accessors with the syntax ``= begin ... end``.
+macro and defining a block of accessors with the syntax ``:= begin ... end``.
 
 Each method in the block takes an implicit first argument ``self::T`` which references the
 object itself and allows for accessing the private field ``x``. Outside of the type ``x``
@@ -90,11 +90,11 @@ and for types the fields and accessors can also be documented:
     type T
         "..."
         y :: Int
-        x :: Int = begin
+        x :: Int := begin
             "..."
             getx() = self.x - 10
             "..."
-            setx!(val) = self.x - val
+            setx!(val) = self.x -= val
         end
     end
 
@@ -139,7 +139,7 @@ function parsetype(ex::Expr, typename::Symbol)
     body = []
     outer = []
     for arg in ex.args
-        if isexpr(arg, :(=))
+        if isexpr(arg, :(:=))
             field, funcs = arg.args
             name = nameof(field)
             vars[name] = gensym(name)
