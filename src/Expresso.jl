@@ -19,5 +19,6 @@ include("utilities.jl")
 include("lambda.jl")
 include("dispatch.jl")
 include("properties.jl")
+include("merge.jl")
 
 end # module
