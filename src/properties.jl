@@ -26,16 +26,18 @@ Further additions might be added at a later time.
 
 #### Modules
 
-    @! [],
-    module M
+```julia
+@! [],
+module M
 
-    export f
+export f
 
-    f(x) = g(x, 2x)
+f(x) = g(x, 2x)
 
-    g(x, y) = y, x
+g(x, y) = y, x
 
-    end
+end
+```
 
 Description:
 
@@ -48,13 +50,15 @@ outer one and then re-exported. The outer module is named ``M``.
 
 #### Types
 
-    @! [],
-    type T
-        x :: Int := begin
-            getx() = self.x - 10
-            setx!(val) = 0 < val < self.x ? self.x = val : error("Cannot set.")
-        end
+```julia
+@! [],
+type T
+    x :: Int := begin
+        getx() = self.x - 10
+        setx!(val) = 0 < val < self.x ? self.x = val : error("Cannot set.")
     end
+end
+```
 
 Description:
 
@@ -70,33 +74,33 @@ is not easily accessible.
 To add documentation to either a module or type that has been defined with ``@!`` one can
 pass a docstring in the ``[ ... ]`` block:
 
-    @! [
-    \"""
-    ...
-    \"""
-    ],
-    module M
-    # ...
-    end
-    ]
+```julia
+@! [
+"..."
+],
+module M
+# ...
+end
+]
+```
 
 and for types the fields and accessors can also be documented:
 
-    @! [
-    \"""
-    ...
-    \"""
-    ],
-    type T
+```julia
+@! [
+"..."
+],
+type T
+    "..."
+    y :: Int
+    x :: Int := begin
         "..."
-        y :: Int
-        x :: Int := begin
-            "..."
-            getx() = self.x - 10
-            "..."
-            setx!(val) = self.x -= val
-        end
+        getx() = self.x - 10
+        "..."
+        setx!(val) = self.x -= val
     end
+end
+```
 
 """
 macro (!)(ex) buildexpr(Head(ex), ex.args...) end

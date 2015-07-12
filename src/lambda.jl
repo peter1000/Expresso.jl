@@ -12,9 +12,10 @@ limit how many arguments can be taken by the function.
 
 *Examples:*
 
-    map((@\\ 1' - 10), 1:10)
-
-    reduce((@\\ 1' - 1' / 2'), 10:1000)
+```julia
+map((@\\ 1' - 10), 1:10)
+reduce((@\\ 1' - 1' / 2'), 10:1000)
+```
 
 **Note:** For short definitions this syntax does not have much advantage over traditional
 ``->`` syntax, but when the argument names are unimportant this syntax can be handy.

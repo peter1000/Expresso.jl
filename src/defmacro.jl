@@ -8,17 +8,19 @@ export @defmacro
 
 *Examples:*
 
-    @defmacro:using(args...) begin
-        # ...
-    end
+```julia
+@defmacro:using(args...) begin
+    # ...
+end
 
-    @using foo bar baz
+@using foo bar baz
 
-    @defmacro:end(ex) foo(ex)
+@defmacro:end(ex) foo(ex)
 
-    @end begin
-        # ...
-    end
+@end begin
+    # ...
+end
+```
 
 """
 macro defmacro(head, body)

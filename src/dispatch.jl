@@ -10,8 +10,10 @@ Dispatch to particular methods depending on the value of an expression's ``.head
 
 *Example:*
 
-    f(::Head{:macro})    = # ...
-    f(::Head{:function}) = # ...
+```julia
+f(::Head{:macro})    = # ...
+f(::Head{:function}) = # ...
+```
 
 """
 immutable Head{H} end
@@ -23,7 +25,9 @@ immutable Head{H} end
 
 *Example:*
 
-    Head(:(module M end))
+```julia
+Head(:(module M end))
+```
 
 """
 Head(ex::Expr)  = Head{ex.head}()
@@ -38,7 +42,9 @@ export @H_str
 
 *Example:*
 
-    f(::H"macrocall, call") = # ...
+```julia
+f(::H"macrocall, call") = # ...
+```
 
 """
 macro H_str(text)

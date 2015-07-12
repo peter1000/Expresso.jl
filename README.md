@@ -1,17 +1,24 @@
+
 # Expresso
 
 [![Build Status](https://travis-ci.org/MichaelHatherly/Expresso.jl.svg?branch=master)](https://travis-ci.org/MichaelHatherly/Expresso.jl)
 
 Expression and macro utilities for Julia.
 
+## Installation
+
+``Expresso.jl`` is an unregistered package and can be installed with ``Pkg.clone``:
+
     julia> Pkg.clone("https://github.com/MichaelHatherly/Expresso.jl")
+
+## Description
 
 Main features:
 
-- Access control macro, ``@!``, for setting type fields and un-exported symbols as private.
-- Function merging macro, ``@merge``, to combine functions from different modules.
+  * Access control macro, `@!`, for setting type fields and un-exported symbols as private.
+  * Function merging macro, `@merge`, to combine functions from different modules.
 
-All documentation can be viewed in the REPL ``?`` mode.
+All documentation can be viewed with the `?` mode or [reference page](doc/refernece.md).
 
 A quick taste:
 
@@ -58,6 +65,22 @@ julia> @for i in 1:10 print(i, " ")
 1 2 3 4 5 6 7 8 9 10
 ```
 
+**Exports:**
+
+  * `@!`
+  * `@H_str`
+  * `@S_str`
+  * `@\`
+  * `@defmacro`
+  * `@for`
+  * `@merge`
+  * `Expresso`
+  * `Head`
+
+Detailed documentation for the exports listed above can be found using `?`.
+
+
 ## Status
 
 Currently a work-in-progress.
+

@@ -8,7 +8,9 @@ export @S_str
 
 *Example:*
 
-    S"foo-bar"
+```julia
+S"foo-bar"
+```
 
 """
 macro S_str(text) quot(symbol(text)) end
@@ -22,7 +24,9 @@ export @for
 
 *Example:*
 
-    @for i in 1:10 println(i)
+```julia
+@for i in 1:10 println(i)
+```
 
 """
 @defmacro:for(itr, body) esc(Expr(:for, itr, body))
