@@ -9,3 +9,5 @@ notifications:
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia --check-bounds=yes -e 'Pkg.clone(pwd()); Pkg.build("Expresso"); Pkg.test("Expresso"; coverage=true)'
+after_success:
+  - julia -e 'cd(Pkg.dir("Expresso")); Pkg.add("Coverage"); Pkg.checkout("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
