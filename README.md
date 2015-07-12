@@ -18,7 +18,7 @@ Main features:
   * Access control macro, `@!`, for setting type fields and un-exported symbols as private.
   * Function merging macro, `@merge`, to combine functions from different modules.
 
-All documentation can be viewed with the `?` mode or [reference page](doc/refernece.md).
+All documentation can be viewed with the `?` mode or [reference page](doc/reference.md).
 
 A quick taste:
 
