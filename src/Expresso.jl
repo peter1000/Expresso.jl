@@ -3,7 +3,7 @@ module Expresso
 """
 # Expresso.jl
 
-> Expression Utilities and macros.
+> Expression and macro utilities for Julia.
 
 The package provides several utilities for working with expressions as well as a macro,
 ``@!``, for restricting access for modules and type fields. See the documentation

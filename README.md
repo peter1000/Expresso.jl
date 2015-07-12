@@ -2,9 +2,14 @@
 
 [![Build Status](https://travis-ci.org/MichaelHatherly/Expresso.jl.svg?branch=master)](https://travis-ci.org/MichaelHatherly/Expresso.jl)
 
-Access control macros and expression utilities for Julia.
+Expression and macro utilities for Julia.
 
     julia> Pkg.clone("https://github.com/MichaelHatherly/Expresso.jl")
+
+Main features:
+
+- Access control macro, ``@!``, for setting type fields and un-exported symbols as private.
+- Function merging macro, ``@merge``, to combine functions from different modules.
 
 All documentation can be viewed in the REPL ``?`` mode.
 
