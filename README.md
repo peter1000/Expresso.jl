@@ -73,6 +73,7 @@ julia> @for i in 1:10 print(i, " ")
   * `@\`
   * `@defmacro`
   * `@for`
+  * `@kwmerge`
   * `@merge`
   * `Expresso`
   * `Head`

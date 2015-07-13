@@ -177,6 +177,26 @@ top:
 
 ---
 
+#### ``@kwmerge``
+
+```
+Expresso.@kwmerge(func, modules...)
+```
+
+> Variant of `@merge` with support for passing keyword arguments.
+
+*Example:*
+
+```julia
+@kwmerge f A B
+f(1, a = 2, b =  3)
+```
+
+**Note:** This macro should only be used when keywords are actually needed since the generated code will probably not be as efficient as that of `@merge`.
+
+
+---
+
 #### ``@\\``
 
 ```
