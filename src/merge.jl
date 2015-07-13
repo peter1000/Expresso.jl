@@ -75,20 +75,37 @@ top:
 ```
 
 """
-macro merge(func, modules...) buildmerge(func, modules) end
+macro merge(func, modules...)   buildmerge(func, false, modules) end
 
-function buildmerge(func, modules)
-    mods  = [getfield(current_module(), m) for m in modules]
-    funcs = [(m, getfield(m, func)) for m in mods]
-    quote
-        @generated function $(func)(args...)
-            m = module_name(Expresso.pickmodule($(funcs), args))
-            :($(m).$($(quot(func)))(args...))
-        end
-    end |> esc
+export @kwmerge
+
+"""
+    Expresso.@kwmerge(func, modules...)
+
+> Variant of ``@merge`` with support for passing keyword arguments.
+
+*Example:*
+
+```julia
+@kwmerge f A B
+f(1, a = 2, b =  3)
+```
+
+**Note:** This macro should only be used when keywords are actually needed since the
+generated code will probably not be as efficient as that of ``@merge``.
+"""
+macro kwmerge(func, modules...) buildmerge(func, true,  modules) end
+
+function buildmerge(f, keywords, mods)
+    mapping = [(m, getfield(m, f)) for m in [getfield(current_module(), m) for m in mods]]
+    m = :(Expresso.pickmodule($(mapping), args))
+    x = keywords ?
+        :($(f)(args...; kws...) = :($($(m)).$($(quot(f)))(args...; kws...))) :
+        :($(f)(args...)         = :($($(m)).$($(quot(f)))(args...)))
+    esc(:(@generated $(x)))
 end
 
 function pickmodule(choices, args)
-    @for (m, fn) in choices method_exists(fn, args) && return m
+    @for (m, fn) in choices method_exists(fn, args) && return module_name(m)
     throw(ArgumentError("No suitable method found with arguments '$(args)'."))
 end

@@ -62,6 +62,7 @@ f(::T) = A
 f(::T, x) = A
 f(::T, ::S) = A
 g(x, y) = A
+h(::T; a = 1) = a
 end
 
 module B
@@ -71,6 +72,7 @@ f(::T) = B
 f(::T, x) = B
 f(::T, ::S) = B
 g(x, y) = B
+h(::T; a = 2) = a
 end
 
 module C
@@ -80,10 +82,13 @@ f(::T) = C
 f(::T, x) = C
 f(::T, ::S) = C
 g(x, y) = C
+h(::T; a = 3) = a
 end
 
 @merge f A B C
 @merge g C B A
+
+@kwmerge h A B C
 
 facts("'@merge'") do
     @fact f(A.T()) => A
@@ -96,6 +101,13 @@ facts("'@merge'") do
     @fact f(B.T(), B.S()) => B
     @fact f(C.T(), C.S()) => C
     @fact g(A.T(), B.S()) => C
+
+    @fact h(A.T()) => 1
+    @fact h(B.T()) => 2
+    @fact h(C.T()) => 3
+    @fact h(A.T(), a = 5) => 5
+    @fact h(B.T(), a = 6) => 6
+    @fact h(C.T(), a = 7) => 7
 end
 
 facts("Dispatch") do
