@@ -1,10 +1,10 @@
 using Expresso, Expresso.Templates
 
-build("Expresso.jl") do
+info("Building 'Expresso.jl' documentation...")
 
-file"""
-../README.md
+@file "../README.md",
 
+"""
 # Expresso
 
 [![Build Status](https://travis-ci.org/MichaelHatherly/Expresso.jl.svg?branch=master)](https://travis-ci.org/MichaelHatherly/Expresso.jl)
@@ -27,9 +27,9 @@ Currently a work-in-progress.
 
 """
 
-file"""
-reference.md
+@file "reference.md",
 
+"""
 # Package Reference
 
 #### ``@!``
@@ -85,5 +85,3 @@ reference.md
 {{@for}}
 
 """
-
-end
