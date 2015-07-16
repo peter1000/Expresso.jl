@@ -1,8 +1,6 @@
 
 export @immutable, @type
 
-@defmacro:immutable(args...) buildcall(:i, args...)
-
 """
     @immutable(args...)
 
@@ -17,9 +15,7 @@ t = @immutable(
 t.a + t.b
 ```
 """
-:@immutable
-
-@defmacro:type(args...) buildcall(:m, args...)
+@defmacro:immutable(args...) buildcall(:i, args...)
 
 """
     @type(args...)
@@ -37,7 +33,7 @@ t = @type(
 t.x += t.y
 ```
 """
-:@type
+@defmacro:type(args...) buildcall(:m, args...)
 
 function buildcall(kind, args...)
     names = Expr(:tuple)
