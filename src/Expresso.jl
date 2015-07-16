@@ -8,6 +8,7 @@ include("lambda.jl")
 include("dispatch.jl")
 include("properties.jl")
 include("merge.jl")
+include("structs.jl")
 
 include("Templates.jl")
 
@@ -16,6 +17,7 @@ Main features:
 
 - Access control macro, ``@!``, for setting type fields and un-exported symbols as private.
 - Function merging macro, ``@merge``, to combine functions from different modules.
+- Anonymous composite types using ``@type`` and ``@immutable`` macros.
 
 All documentation can be viewed with the ``?`` mode or [reference page](doc/reference.md).
 
@@ -58,10 +60,14 @@ julia> setx!(t, 6)
 julia> t
 T(6)
 
-julia> @defmacro:for(itr, body) esc(Expr(:for, itr, body))
+julia> x = @type(
+           a = 2,
+           b = 3,
+       )
+anonymous.##[generated type]#6447(2,3)
 
-julia> @for i in 1:10 print(i, " ")
-1 2 3 4 5 6 7 8 9 10
+julia> x.a + x.b
+5
 ```
 
 **Exports:**

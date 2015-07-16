@@ -200,6 +200,50 @@ f(1, a = 2, b =  3)
 
 ---
 
+#### ``@type``
+
+```
+@type(args...)
+```
+
+> Construct an anonymous mutable type instance.
+
+
+*Example:*
+
+```julia
+t = @type(
+    x = 2,
+    y = 3,
+)
+
+t.x += t.y
+```
+
+
+---
+
+#### ``@immutable``
+
+```
+@immutable(args...)
+```
+
+> Construct an anonymous immutable type instance.
+
+
+```julia
+t = @immutable(
+    a = 1.0,
+    b = 2.1,
+)
+
+t.a + t.b
+```
+
+
+---
+
 #### ``@\``
 
 ```

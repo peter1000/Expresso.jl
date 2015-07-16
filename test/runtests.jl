@@ -114,3 +114,25 @@ facts("Dispatch") do
     @fact Head(:(module M end)) => Head{:module}()
     @fact H"call, macrocall" => Union{Head{:call}, Head{:macrocall}}
 end
+
+facts("Anonymous Types") do
+    a = @type(
+        x = 1,
+        y = "foo",
+        z = [1, 2, 3],
+    )
+    @fact a.x => 1
+    @fact a.y => "foo"
+    @fact a.z => [1, 2, 3]
+    @fact isimmutable(a) => false
+
+    b = @immutable(
+        x = 1.0,
+        y = 'b',
+        z = (1, 2, 3),
+    )
+    @fact b.x => 1.0
+    @fact b.y => 'b'
+    @fact b.z => (1, 2, 3)
+    @fact isimmutable(b) => true
+end

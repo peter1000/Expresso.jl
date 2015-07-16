@@ -50,6 +50,18 @@ Currently a work-in-progress.
 
 ---
 
+#### ``@type``
+
+{{@type}}
+
+---
+
+#### ``@immutable``
+
+{{@immutable}}
+
+---
+
 #### ``@\\``
 
 {{@\\}}
