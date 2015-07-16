@@ -48,13 +48,11 @@ end
 @generated i_struct(fields, args...) = struct(false, fields, args...)
 @generated m_struct(fields, args...) = struct(true,  fields, args...)
 
-module Anonymous end
-
 function struct{T}(ismutable::Bool, ::Type{T}, args...)
     name = gensym("[generated $(ismutable ? "type" : "immutable")]")
     expr = Expr(:type, ismutable, name)
     body = [Expr(:(::), x.parameters[1], y) for (x, y) in zip(T.parameters, args)]
     push!(expr.args, Expr(:block, body...))
-    eval(Anonymous, expr)
-    :(Expresso.Anonymous.$(name)(args...))
+    eval(current_module(), expr)
+    :($(current_module()).$(name)(args...))
 end
