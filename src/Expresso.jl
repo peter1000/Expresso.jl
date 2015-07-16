@@ -64,7 +64,7 @@ julia> x = @type(
            a = 2,
            b = 3,
        )
-anonymous.##[generated type]#6447(2,3)
+Expresso.Anonymous.##[generated type]#6621(2,3)
 
 julia> x.a + x.b
 5
