@@ -41,9 +41,9 @@ t.x += t.y
 
 ### Syntax
 
-In the example above each field and it's value were specified using ``field = value`` syntax.
-When packing a group of variables into a ``@type`` or ``@immutable`` the following pattern can
-become repetetive:
+In the example above each field and it's value were specified using ``field = value``
+syntax. When packing a group of variables into a ``@type`` or ``@immutable`` the following
+pattern can become repetetive:
 
 ```julia
 x, z = 1, 3
@@ -69,9 +69,10 @@ which is equivalent to the previous example. The same syntax also applies to ``@
 @defmacro:type(args...) buildcall(:m, args...)
 
 function buildcall(kind, args...)
+    modname = Val{hash(fullname(current_module()))}()
     names, values = Expr(:tuple), Expr(:tuple)
     @for a in args addfields!(names.args, values.args, a)
-    :($(symbol(kind, "_struct"))($(esc(names)), $(esc(values))...))
+    :($(symbol(kind, "_struct"))($(esc(modname)), $(esc(names)), $(esc(values))...))
 end
 
 addfields!(n, v, x::Expr)        = addfields!(n, v, Head(x), x)
@@ -80,8 +81,8 @@ addfields!(n, v, s::Symbol)      = (push!(n, Val{s}()); push!(v, s))
 
 addfields!(others...) = throw(ArgumentError("Invalid '@type'/'@immutable' syntax."))
 
-@generated i_struct(fields, args...) = struct(false, fields, args...)
-@generated m_struct(fields, args...) = struct(true,  fields, args...)
+@generated i_struct(::Val, fields, args...) = struct(false, fields, args...)
+@generated m_struct(::Val, fields, args...) = struct(true,  fields, args...)
 
 function struct{T}(ismutable::Bool, ::Type{T}, args...)
     name = gensym("[generated $(ismutable ? "type" : "immutable")]")
