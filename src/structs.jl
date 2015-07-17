@@ -2,9 +2,11 @@
 export @immutable, @type
 
 """
-    @immutable(args...)
+    Expresso.@immutable(args...)
 
 > Construct an anonymous immutable type instance.
+
+*Example:*
 
 ```julia
 t = @immutable(
@@ -14,11 +16,14 @@ t = @immutable(
 
 t.a + t.b
 ```
+
+**See also:** ``@type``.
+
 """
 @defmacro:immutable(args...) buildcall(:i, args...)
 
 """
-    @type(args...)
+    Expresso.@type(args...)
 
 > Construct an anonymous mutable type instance.
 
@@ -31,19 +36,49 @@ t = @type(
 )
 
 t.x += t.y
+
 ```
+
+### Syntax
+
+In the example above each field and it's value were specified using ``field = value`` syntax.
+When packing a group of variables into a ``@type`` or ``@immutable`` the following pattern can
+become repetetive:
+
+```julia
+x, z = 1, 3
+t = @type(
+    x = x,
+    y = 2,
+    z = z,
+)
+```
+
+and can be avoided by just providing the variable name in place of ``field = value``:
+
+```julia
+x, z = 1, 3
+t = @type(x, y = 2, z)
+```
+
+which is equivalent to the previous example. The same syntax also applies to ``@immutable``.
+
+**See also:** ``@immutable``.
+
 """
 @defmacro:type(args...) buildcall(:m, args...)
 
 function buildcall(kind, args...)
-    names = Expr(:tuple)
-    values = Expr(:tuple)
-    for a in args
-        push!(names.args, Val{a.args[1]}())
-        push!(values.args, a.args[2])
-    end
+    names, values = Expr(:tuple), Expr(:tuple)
+    @for a in args addfields!(names.args, values.args, a)
     :($(symbol(kind, "_struct"))($(esc(names)), $(esc(values))...))
 end
+
+addfields!(n, v, x::Expr)        = addfields!(n, v, Head(x), x)
+addfields!(n, v,  ::H"=, kw", x) = (push!(n, Val{x.args[1]}()); push!(v, x.args[2]))
+addfields!(n, v, s::Symbol)      = (push!(n, Val{s}()); push!(v, s))
+
+addfields!(others...) = throw(ArgumentError("Invalid '@type'/'@immutable' syntax."))
 
 @generated i_struct(fields, args...) = struct(false, fields, args...)
 @generated m_struct(fields, args...) = struct(true,  fields, args...)

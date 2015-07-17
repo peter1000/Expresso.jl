@@ -74,6 +74,8 @@ top:
 }
 ```
 
+**See also:** ``@kwmerge``.
+
 """
 macro merge(func, modules...)   buildmerge(func, false, modules) end
 
@@ -93,6 +95,9 @@ f(1, a = 2, b =  3)
 
 **Note:** This macro should only be used when keywords are actually needed since the
 generated code will probably not be as efficient as that of ``@merge``.
+
+**See also:** ``@merge``.
+
 """
 macro kwmerge(func, modules...) buildmerge(func, true,  modules) end
 

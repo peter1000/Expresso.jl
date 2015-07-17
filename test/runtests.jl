@@ -116,23 +116,40 @@ facts("Dispatch") do
 end
 
 facts("Anonymous Types") do
-    a = @type(
-        x = 1,
-        y = "foo",
-        z = [1, 2, 3],
-    )
-    @fact a.x => 1
-    @fact a.y => "foo"
-    @fact a.z => [1, 2, 3]
-    @fact isimmutable(a) => false
+    context("'@type'") do
+        a = @type(
+            x = 1,
+            y = "foo",
+            z = [1, 2, 3],
+        )
+        @fact a.x => 1
+        @fact a.y => "foo"
+        @fact a.z => [1, 2, 3]
+        @fact isimmutable(a) => false
 
-    b = @immutable(
-        x = 1.0,
-        y = 'b',
-        z = (1, 2, 3),
-    )
-    @fact b.x => 1.0
-    @fact b.y => 'b'
-    @fact b.z => (1, 2, 3)
-    @fact isimmutable(b) => true
+        x, y = 1, 2
+        b = @type(x, y, z = 3)
+        @fact b.x => 1
+        @fact b.y => 2
+        @fact b.z => 3
+        @fact isimmutable(b) => false
+    end
+    context("'@immutable'") do
+        a = @immutable(
+            x = 1.0,
+            y = 'b',
+            z = (1, 2, 3),
+        )
+        @fact a.x => 1.0
+        @fact a.y => 'b'
+        @fact a.z => (1, 2, 3)
+        @fact isimmutable(a) => true
+
+        x, y = 1, 2
+        b = @immutable(x, y, z = 3)
+        @fact b.x => 1
+        @fact b.y => 2
+        @fact b.z => 3
+        @fact isimmutable(b) => true
+    end
 end

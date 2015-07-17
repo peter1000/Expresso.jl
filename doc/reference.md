@@ -176,6 +176,8 @@ top:
 }
 ```
 
+**See also:** `@kwmerge`.
+
 
 ---
 
@@ -197,13 +199,15 @@ f(1, a = 2, b =  3)
 
 **Note:** This macro should only be used when keywords are actually needed since the generated code will probably not be as efficient as that of `@merge`.
 
+**See also:** `@merge`.
+
 
 ---
 
 #### ``@type``
 
 ```
-@type(args...)
+Expresso.@type(args...)
 ```
 
 > Construct an anonymous mutable type instance.
@@ -218,7 +222,32 @@ t = @type(
 )
 
 t.x += t.y
+
 ```
+
+### Syntax
+
+In the example above each field and it's value were specified using `field = value` syntax. When packing a group of variables into a `@type` or `@immutable` the following pattern can become repetetive:
+
+```julia
+x, z = 1, 3
+t = @type(
+    x = x,
+    y = 2,
+    z = z,
+)
+```
+
+and can be avoided by just providing the variable name in place of `field = value`:
+
+```julia
+x, z = 1, 3
+t = @type(x, y = 2, z)
+```
+
+which is equivalent to the previous example. The same syntax also applies to `@immutable`.
+
+**See also:** `@immutable`.
 
 
 ---
@@ -226,11 +255,13 @@ t.x += t.y
 #### ``@immutable``
 
 ```
-@immutable(args...)
+Expresso.@immutable(args...)
 ```
 
 > Construct an anonymous immutable type instance.
 
+
+*Example:*
 
 ```julia
 t = @immutable(
@@ -240,6 +271,8 @@ t = @immutable(
 
 t.a + t.b
 ```
+
+**See also:** `@type`.
 
 
 ---
