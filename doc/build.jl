@@ -62,6 +62,12 @@ Currently a work-in-progress.
 
 ---
 
+#### ``@atinit``
+
+{{@atinit}}
+
+---
+
 #### ``@\\``
 
 {{@\\}}

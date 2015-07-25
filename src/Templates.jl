@@ -39,4 +39,15 @@ buildwriter(part, isdef) = isdef ?
     :(writemime(file, "text/plain", (@doc $(esc(parse(part)))))) :
     :(print(file, $(esc(part))))
 
+function Markdown.plain(io::IO, q::Markdown.BlockQuote)
+    s = sprint(buf -> Markdown.plain(buf, q.content))
+    for line in split(rstrip(s), "\n")
+        println(io, isempty(line) ? ">" : "> ", line)
+    end
+    println(io)
+end
+
+Markdown.plaininline(io::IO, link::Markdown.Link) =
+    Markdown.plaininline(io, "[", link.text, "](", link.url, ")")
+
 end

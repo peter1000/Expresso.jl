@@ -76,6 +76,7 @@ julia> x.a + x.b
   * `@H_str`
   * `@S_str`
   * `@\`
+  * `@atinit`
   * `@defmacro`
   * `@for`
   * `@immutable`

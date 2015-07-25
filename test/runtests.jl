@@ -4,6 +4,8 @@ using FactCheck
 @! ["..."],
 module TestModule
 
+using Expresso
+
 export f
 
 f(x) = g(2x)
@@ -27,19 +29,19 @@ end
 facts("'@!'") do
     context("Modules") do
         @fact TestModule.f(1) => -2
-        @fact :f ∈ names(TestModule) => true
-        @fact :T ∈ names(TestModule) => true
-        @fact :g ∈ names(TestModule) => false
-        @fact :f ∈ names(TestModule, true) => true
-        @fact :T ∈ names(TestModule, true) => true
-        @fact :g ∈ names(TestModule, true) => false
+        @fact (:f ∈ names(TestModule)) => true
+        @fact (:T ∈ names(TestModule)) => true
+        @fact (:g ∈ names(TestModule)) => false
+        @fact (:f ∈ names(TestModule, true)) => true
+        @fact (:T ∈ names(TestModule, true)) => true
+        @fact (:g ∈ names(TestModule, true)) => false
     end
     context("Types") do
         t = TestModule.T(1)
         @fact TestModule.getx(t) => 1
         @fact TestModule.setx!(t, 1) => 2
         @fact TestModule.getx(t) => 2
-        @fact :x ∈ fieldnames(TestModule.T) => false
+        @fact (:x ∈ fieldnames(TestModule.T)) => false
     end
 end
 
@@ -152,4 +154,20 @@ facts("Anonymous Types") do
         @fact b.z => 3
         @fact isimmutable(b) => true
     end
+end
+
+module InitHooksTest
+
+using Expresso
+
+const things = Int[]
+
+@atinit push!(things, 1)
+@atinit push!(things, 2)
+@atinit push!(things, 3)
+
+end
+
+facts("'@atinit'") do
+    @fact InitHooksTest.things => [1, 2, 3]
 end

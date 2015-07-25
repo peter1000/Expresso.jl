@@ -9,6 +9,7 @@ include("dispatch.jl")
 include("properties.jl")
 include("merge.jl")
 include("structs.jl")
+include("init.jl")
 
 include("Templates.jl")
 
