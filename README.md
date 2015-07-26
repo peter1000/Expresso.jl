@@ -76,7 +76,6 @@ julia> x.a + x.b
   * `@H_str`
   * `@S_str`
   * `@\`
-  * `@atinit`
   * `@defmacro`
   * `@for`
   * `@immutable`
@@ -85,6 +84,7 @@ julia> x.a + x.b
   * `@type`
   * `Expresso`
   * `Head`
+  * `atinit`
 
 Detailed documentation for the exports listed above can be found using `?`.
 

@@ -62,9 +62,9 @@ Currently a work-in-progress.
 
 ---
 
-#### ``@atinit``
+#### ``atinit``
 
-{{@atinit}}
+{{atinit}}
 
 ---
 

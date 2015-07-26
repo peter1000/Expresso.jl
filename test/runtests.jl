@@ -162,9 +162,15 @@ using Expresso
 
 const things = Int[]
 
-@atinit push!(things, 1)
-@atinit push!(things, 2)
-@atinit push!(things, 3)
+atinit() do
+    push!(things, 1)
+end
+atinit() do
+    push!(things, 2)
+end
+atinit() do
+    push!(things, 3)
+end
 
 end
 
